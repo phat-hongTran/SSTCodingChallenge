@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <string> 
+#include <fstream>
 
 int getInputInRange(int maxRange);
 int getFavoredFaceForDice(int dieNumber);
@@ -11,6 +12,7 @@ int getFactorForFaceOfDice(int dieNumber);
 void clearInputStream();
 int getInput();
 int rollTheDice(int favoredFace, int factor);
+void storeResultsInFile(const std::vector<std::string>& results, const std::string& filename);
 
 int main()
 {
@@ -40,6 +42,8 @@ int main()
 	for (const std::string& result : results) {
 		std::cout << result << std::endl;
 	}
+
+	storeResultsInFile(results, "results.txt");
 
 	return 0;
 }
@@ -144,6 +148,20 @@ int getFactorForFaceOfDice(int dieNumber)
 void clearInputStream() {
 	std::cin.clear(); // Clear the error flag set on cin
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore any invalid input
+}
+
+void storeResultsInFile(const std::vector<std::string>& results, const std::string& filename) {
+	std::ofstream outFile(filename);
+	if (outFile.is_open()) {
+		for (std::string result : results) {
+			outFile << result << std::endl;
+		}
+		outFile.close();
+		std::cout << "Results stored in " << filename << std::endl;
+	}
+	else {
+		std::cerr << "Unable to open file " << filename << std::endl;
+	}
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
