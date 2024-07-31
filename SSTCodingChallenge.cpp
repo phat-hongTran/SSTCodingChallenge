@@ -18,23 +18,31 @@ int main()
 {
     std::cout << "Simpson Strong-Tie Programming and Design Project\n";
 
-	int favoredFaceDice1 = getFavoredFaceForDice(1);
-	int factorFaceDice1 = getFactorForFaceOfDice(1);
-
-	int favoredFaceDice2 = getFavoredFaceForDice(2);
-	int factorFaceDice2 = getFactorForFaceOfDice(2);
-
-	std::cout << "Enter a number of times the dice should be rolled with the current settings: ";
+	std::cout << "Enter a number of times the dice should be rolled: ";
 	int rollCount = getInput();
 
 	std::vector<std::string> results;
+	int numberOfDice = 2;
 
-	for (int i = 0; i < rollCount; ++i)
+	for (int i = 1; i <= numberOfDice; i++)
 	{
-		int resultDice1 = rollTheDice(favoredFaceDice1, factorFaceDice1);
-		int resultDice2 = rollTheDice(favoredFaceDice2, factorFaceDice2);
+		int favoredFaceDice = getFavoredFaceForDice(i);
+		int factorFaceDice = getFactorForFaceOfDice(i);
 
-		std::string resultString = "Dice 1 result: " + std::to_string(resultDice1) + " - Dice 2 result: " + std::to_string(resultDice2);
+		std::string resultString = "Dice " + std::to_string(i) + " result: ";
+
+		for (int i = 0; i < rollCount; ++i)
+		{
+			int resultDice = rollTheDice(favoredFaceDice, factorFaceDice);
+
+			resultString += std::to_string(resultDice);
+
+			bool isLastRoll = i == rollCount - 1;
+			if (!isLastRoll)
+			{
+				resultString += ", ";
+			}
+		}
 
 		results.push_back(resultString);
 	}
