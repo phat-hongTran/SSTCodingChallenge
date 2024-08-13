@@ -19,10 +19,10 @@ int main()
     std::cout << "Simpson Strong-Tie Programming and Design Project\n";
 
 	std::cout << "Enter a number of times the dice should be rolled: ";
-	int rollCount = getInput();
+	const int rollCount = getInput();
 
 	std::vector<std::string> results;
-	int numberOfDice = 2;
+	const int numberOfDice = 2;
 
 	for (int i = 1; i <= numberOfDice; i++)
 	{
@@ -37,6 +37,7 @@ int main()
 
 			resultString += std::to_string(resultDice);
 
+			// We don't want to add a comma after the last roll
 			bool isLastRoll = i == rollCount - 1;
 			if (!isLastRoll)
 			{
@@ -60,14 +61,16 @@ int rollTheDice(int favoredFace, int factor)
 {
 	std::vector<int> faces = { };
 
+	// This will increase the probability of the favored face being rolled
 	for (int i = 0; i < factor; ++i)
 	{
 		faces.push_back(favoredFace);
 	}
 
-	int diceFaces = 6;
+	const int diceFaces = 6;
 	for (int i = 1; i <= diceFaces; i++) 
 	{
+		// Skip the favored face as it has already been added to the faces vector
 		if (i == favoredFace)
 		{
 			continue;
@@ -85,6 +88,7 @@ int getInput()
 {
 	int input;
 
+	// We will keep asking the user for input until they provide a valid number
 	do
 	{
 		std::cin >> input;
@@ -112,6 +116,7 @@ int getInputInRange(int maxRange)
 {
 	int input;
 
+	// We will keep asking the user for input until they provide a valid number within the specified range
 	do
 	{
 		std::cout << "Enter a number between 1 and " << maxRange << ": ";
@@ -143,14 +148,18 @@ int getFavoredFaceForDice(int dieNumber)
 {
 	std::cout << "Please specify the face to be favored for dice " << dieNumber << ": \n";
 
-	return getInputInRange(6);
+	const int diceFaces = 6;
+
+	return getInputInRange(diceFaces);
 }
 
 int getFactorForFaceOfDice(int dieNumber)
 {
 	std::cout << "Please specify the factor of the favored face for dice " << dieNumber << ": \n";
 
-	return getInputInRange(5);
+	const int maxFactor = 5;
+
+	return getInputInRange(maxFactor);
 }
 
 void clearInputStream() {
